@@ -38,6 +38,13 @@
             doCheck = false;
             checkPhase = null;
             strictDeps = true;
+
+            buildInputs = [ pkgs.makeWrapper ];
+
+            postInstall = ''
+              wrapProgram $out/bin/xargo \
+              --set-default RUST_BACKTRACE FULL \
+            '';
           };  
           defaultPackage = self.packages.${system}.xargo;
 
